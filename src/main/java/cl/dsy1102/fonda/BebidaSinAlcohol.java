@@ -13,18 +13,22 @@ public class BebidaSinAlcohol extends Bebida {
         return this.azucarPorLitro;
     }
 
-    public void setAzucarPorLitro(int azucarPorLitro) {
-        // POR IMPLEMENTAR
+    public void setAzucarPorLitro(int azucarPorLitro) throws IllegalArgumentException {
+        if (azucarPorLitro < 0) {
+            throw new IllegalArgumentException("Azúcar por litro inferior a 0");
+        } else {
+            this.azucarPorLitro = azucarPorLitro;
+        }
     }
 
     @Override
     public double calcularPrecio() {
-        // POR IMPLEMENTAR
+        return 2000.0 * ((this.azucarPorLitro > 80) ? 1.1 : 1.0);
     }
 
     @Override
     public String obtenerDetalle() {
-        // POR IMPLEMENTAR
+        return "Tipo: Bebida sin alcohol | Nombre: " + this.nombre + " | Volumen: " + this.volumenML + " mL | Stock: " + this.stock + " | Azúcar: " + this.azucarPorLitro + " g/L | Precio: $" + calcularPrecio();
     }
 
 

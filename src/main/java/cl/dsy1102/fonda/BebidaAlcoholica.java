@@ -19,8 +19,14 @@ public class BebidaAlcoholica extends Bebida implements ConsumoResponsable {
         return this.gradosAlcohol;
     }
 
-    public void setGradosAlcohol(double gradosAlcohol) {
-        // POR IMPLEMENTAR
+    public void setGradosAlcohol(double gradosAlcohol) throws IllegalArgumentException {
+        if (gradosAlcohol < 0) {
+            throw new IllegalArgumentException("Grados de alcohol menor a 0.0%");
+        } else if (gradosAlcohol > 100) {
+            throw new IllegalArgumentException("Grados de alcohol mayor a 100.0%");
+        } else {
+            this.gradosAlcohol = gradosAlcohol;
+        }
     }
 
     public boolean isCertificada() {
@@ -28,17 +34,17 @@ public class BebidaAlcoholica extends Bebida implements ConsumoResponsable {
     }
 
     public void setCertificada(boolean certificada) {
-        // POR IMPLEMENTAR
+        this.certificada = certificada;
     }
 
     @Override
     public double calcularPrecio() {
-        // POR IMLPEMENTAR
+        return 3500.0 * ((!certificada) ? 1.2 : 1.0);
     }
 
     @Override
     public String obtenerDetalle() {
-        // POR IMPLEMENTAR
+        return "Tipo: Bebida alcohólica | Nombre: " + this.nombre + " | Volumen: " + this.volumenML + " mL | Stock: " + this.stock + " | Grados: " + this.gradosAlcohol + " | Certificada: " + () + () +  " | Precio: $" + calcularPrecio()
     }
 
     @Override
