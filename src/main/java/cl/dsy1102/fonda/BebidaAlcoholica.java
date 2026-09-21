@@ -6,13 +6,13 @@ public class BebidaAlcoholica extends Bebida implements ConsumoResponsable {
 
     private double gradosAlcohol;
     private boolean certificada;
-    private boolean ventaRegistrada;
+    private boolean ventaRestringida;
 
     public BebidaAlcoholica(String nombre, int volumenML, int stock, double gradosAlcohol, boolean certificada) {
         super(nombre, volumenML, stock);
         this.gradosAlcohol = gradosAlcohol;
         this.certificada = certificada;
-        this.ventaRegistrada = false;
+        this.ventaRestringida = false;
     }
 
     public double getGradosAlcohol() {
@@ -44,22 +44,27 @@ public class BebidaAlcoholica extends Bebida implements ConsumoResponsable {
 
     @Override
     public String obtenerDetalle() {
-        return "Tipo: Bebida alcohólica | Nombre: " + this.nombre + " | Volumen: " + this.volumenML + " mL | Stock: " + this.stock + " | Grados: " + this.gradosAlcohol + " | Certificada: " + () + () +  " | Precio: $" + calcularPrecio()
+        return "Tipo: Bebida alcohólica | Nombre: " + this.nombre + " | Volumen: " + this.volumenML + " mL | Stock: " + this.stock + " | Grados: " + this.gradosAlcohol + " | Certificada: " + (this.certificada ? "Sí" : "No") + "Venta restringida: " + (tieneVentaRestringida() ? "Sí" : "No") +  " | Precio: $" + calcularPrecio();
     }
 
     @Override
     public boolean tieneVentaRestringida() {
-        // POR IMPLEMENTAR
+        return this.ventaRestringida;
     }
 
     @Override
     public void restringirVenta() {
-        // POR IMLPEMENTAR
+        this.ventaRestringida = true;
     }
 
     @Override
     public boolean superaLimite(int unidades) {
-        // POR IMPLEMENTAR
+        return unidades > LIMITE_UNIDADES_POR_CLIENTE;
+    }
+
+    @Override
+    public String retornarTipo() {
+        return "BebidaAlcoholica";
     }
 
 }

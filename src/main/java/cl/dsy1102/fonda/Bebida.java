@@ -2,16 +2,23 @@ package cl.dsy1102.fonda;
 
 public abstract class Bebida {
 
+    // Atributos
     protected String nombre;
     protected int volumenML;
     protected int stock;
 
+
+
+    // Constructores
     public Bebida(String nombre, int volumenML, int stock) {
         this.nombre = nombre;
         this.volumenML = volumenML;
         this.stock = stock;
     }
 
+
+
+    // Getters y setters
     public String getNombre() {
         return this.nombre;
     }
@@ -50,10 +57,17 @@ public abstract class Bebida {
         }
     }
 
+
+
+    // Métodos abstractos
     public abstract double calcularPrecio();
 
     public abstract String obtenerDetalle();
 
+    public abstract String retornarTipo();
+
+
+    // Métodos mágicos
     @Override
     public String toString() {
         return "Nombre: " + this.nombre + " | Volumen: " + this.volumenML + " mL";
