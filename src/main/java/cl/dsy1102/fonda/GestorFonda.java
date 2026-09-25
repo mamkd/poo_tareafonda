@@ -1,7 +1,7 @@
 package cl.dsy1102.fonda;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GestorFonda {
 
@@ -23,7 +23,15 @@ public class GestorFonda {
             throw new IllegalArgumentException("Bebida es null");
         } else {
             this.bebidas.add(bebida);
-            System.out.println(bebida.getNombre() + " (" + bebida.retornarTipo() + ") registrada correctamente.");
+            String tipoBebida;
+            if (bebida instanceof BebidaAlcoholica) {
+                tipoBebida = "BebidaAlcoholica";
+            } else if (bebida instanceof BebidaSinAlcohol) {
+                tipoBebida = "BebidaSinAlcohol";
+            } else {
+                tipoBebida = "Bebida Desconocida";
+            }
+            System.out.println(bebida.getNombre() + " (" + tipoBebida + ") registrada correctamente.");
         }
     }
 
@@ -44,7 +52,32 @@ public class GestorFonda {
     }
 
     public void vender(String nombre, int unidades) {
-        // POR IMPLEMENTAR
+        Bebida match = null;
+        for (int i = 0; i < this.bebidas.size(); i++) {
+            if (this.bebidas.get(i).getNombre().equals(nombre)) {
+                match = this.bebidas.get(i);
+                break;
+            }
+        }
+        if (match == null) {
+            System.out.println("Venta rechazada: No se encontraron bebidas con el nombre '" + nombre + "'.");
+        } else {
+            if (match instanceof ConsumoResponsable) {
+                if (((ConsumoResponsable) match).tieneVentaRestringida()) {
+                    System.out.println("Venta rechazada: " + nombre + " tiene venta restringida.");
+                } else if (unidades > ConsumoResponsable.LIMITE_UNIDADES_POR_CLIENTE) {
+                    System.out.println("Venta rechazada: " + unidades + " unidades de " + nombre + " superan el límite de " + ConsumoResponsable.LIMITE_UNIDADES_POR_CLIENTE + " por cliente.");
+                } else {
+                    System.out.println("Venta autorizada: " + unidades + " x " + nombre + " | Total: $" + unidades * match.calcularPrecio());
+                }
+            } else if (match instanceof BebidaSinAlcohol) {
+                System.out.println("Venta autorizada: " + unidades + " x " + nombre + " | Total: $" + unidades * match.calcularPrecio());
+            }
+        }
+    }
+
+    public List<Bebida> obtenerTodas() {
+        return this.bebidas;
     }
 
 }

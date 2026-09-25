@@ -27,7 +27,7 @@ public abstract class Bebida {
         if (nombre == null) {
             throw new IllegalArgumentException("Nombre es null.");
         } else if (nombre.isBlank()) {
-            throw new IllegalArgumentException("Nombre no contiene carácteres alfanuméricos. ");
+            throw new IllegalArgumentException("Nombre está vacío");
         } else {
             this.nombre = nombre;
         }
@@ -54,6 +54,8 @@ public abstract class Bebida {
     public void setStock(int stock) throws IllegalArgumentException {
         if (stock < 0) {
             throw new IllegalArgumentException("Stock inferior a 0");
+        } else {
+            this.stock = stock;
         }
     }
 
@@ -63,8 +65,6 @@ public abstract class Bebida {
     public abstract double calcularPrecio();
 
     public abstract String obtenerDetalle();
-
-    public abstract String retornarTipo();
 
 
     // Métodos mágicos

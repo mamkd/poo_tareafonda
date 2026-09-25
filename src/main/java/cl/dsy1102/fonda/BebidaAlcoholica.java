@@ -2,8 +2,6 @@ package cl.dsy1102.fonda;
 
 public class BebidaAlcoholica extends Bebida implements ConsumoResponsable {
 
-    public static final int LIMITE_UNIDADES_POR_CLIENTE = 3;
-
     private double gradosAlcohol;
     private boolean certificada;
     private boolean ventaRestringida;
@@ -20,10 +18,10 @@ public class BebidaAlcoholica extends Bebida implements ConsumoResponsable {
     }
 
     public void setGradosAlcohol(double gradosAlcohol) throws IllegalArgumentException {
-        if (gradosAlcohol < 0) {
-            throw new IllegalArgumentException("Grados de alcohol menor a 0.0%");
-        } else if (gradosAlcohol > 100) {
-            throw new IllegalArgumentException("Grados de alcohol mayor a 100.0%");
+        if (gradosAlcohol < 0.5) {
+            throw new IllegalArgumentException("Grados de alcohol menor a 0.5%");
+        } else if (gradosAlcohol > 45.0) {
+            throw new IllegalArgumentException("Grados de alcohol mayor a 45.0%");
         } else {
             this.gradosAlcohol = gradosAlcohol;
         }
@@ -39,12 +37,12 @@ public class BebidaAlcoholica extends Bebida implements ConsumoResponsable {
 
     @Override
     public double calcularPrecio() {
-        return 3500.0 * ((!certificada) ? 1.2 : 1.0);
+        return 3500.0 * ((!this.certificada) ? 1.2 : 1.0);
     }
 
     @Override
     public String obtenerDetalle() {
-        return "Tipo: Bebida alcohólica | Nombre: " + this.nombre + " | Volumen: " + this.volumenML + " mL | Stock: " + this.stock + " | Grados: " + this.gradosAlcohol + " | Certificada: " + (this.certificada ? "Sí" : "No") + "Venta restringida: " + (tieneVentaRestringida() ? "Sí" : "No") +  " | Precio: $" + calcularPrecio();
+        return "Tipo: Bebida alcohólica | Nombre: " + this.nombre + " | Volumen: " + this.volumenML + " mL | Stock: " + this.stock + " | Grados: " + this.gradosAlcohol + "g/L | Certificada: " + (this.isCertificada() ? "Sí" : "No") + " | Venta restringida: " + (this.tieneVentaRestringida() ? "Sí" : "No") +  " | Precio: $" + this.calcularPrecio();
     }
 
     @Override
@@ -62,9 +60,5 @@ public class BebidaAlcoholica extends Bebida implements ConsumoResponsable {
         return unidades > LIMITE_UNIDADES_POR_CLIENTE;
     }
 
-    @Override
-    public String retornarTipo() {
-        return "BebidaAlcoholica";
-    }
 
 }
